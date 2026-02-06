@@ -22,7 +22,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
     app_name: str = "retail-vision"
-    postgres_url: str = "postgresql+psycopg://retail:retail@localhost:5432/retail_vision"
+    postgres_url: str = "postgresql+psycopg2://retail:retail@localhost:5432/retail_vision"
     websocket_ping_seconds: int = 5
 
     telegram_bot_token: str = ""
