@@ -28,8 +28,6 @@ Retail analytics stack scaffold built around:
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-# Optional (YOLO/DeepSORT modules):
-pip install -r requirements-vision.txt
 uvicorn app.main:app --reload
 ```
 
@@ -38,43 +36,6 @@ Streamlit dashboard:
 ```bash
 streamlit run dashboards/streamlit_app.py
 ```
-
-### Dependency notes (Windows / Python versions)
-
-- `requirements.txt` contains the core API/dashboard dependencies and should install cleanly on modern Python versions.
-- Computer-vision packages are separated into `requirements-vision.txt` because `ultralytics==8.3.3` requires `numpy<2.0`.
-- For vision installs, use Python **3.11 or 3.12** to avoid `numpy` wheel availability issues on Windows.
-
-## Environment Configuration
-
-Create a `.env` file from `.env.example` and set `POSTGRES_URL` to your database connection string. The app reads this automatically via `pydantic-settings`.
-
-```bash
-cp .env.example .env
-```
-
-### Using Supabase as PostgreSQL
-
-If you already use Supabase, set `POSTGRES_URL` to your Supabase connection URL and include `sslmode=require`.
-
-Example (pooler format):
-
-```env
-POSTGRES_URL=postgresql+psycopg://postgres.<PROJECT_REF>:<PASSWORD>@aws-0-<REGION>.pooler.supabase.com:6543/postgres?sslmode=require
-```
-
-Notes:
-
-- In Supabase dashboard, copy the **Connection string** from **Project Settings → Database**.
-- Prefer the **pooler** connection string for app/runtime traffic.
-- The SQL schema can be applied directly to Supabase Postgres using `psql` or the Supabase SQL editor.
-
-Apply schema with `psql`:
-
-```bash
-psql "$POSTGRES_URL" -f app/db/schema.sql
-```
-
 
 ## Database Schema
 
